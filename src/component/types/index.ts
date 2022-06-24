@@ -19,6 +19,6 @@ export interface MainType {
 export interface DataType {
 	main: MainType;
 	name: string;
-	weather: weatherType;
+	weather: Array<weatherType>;
 	wind: WindType;
 }
