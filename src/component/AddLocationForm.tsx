@@ -1,5 +1,12 @@
 import React, { ChangeEvent, KeyboardEvent } from 'react'
-import { Button, TextField } from "@mui/material";
+import { Box, Button, styled, TextField } from "@mui/material";
+
+const Wrapper = styled(Box)(() => ({
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    fontSize: 24,
+}));
+
 
 type AddLocationFormProps = {
     locationHandler: (location: string) => void
@@ -11,19 +18,19 @@ const AddLocationForm: React.FC<AddLocationFormProps> = ({ locationHandler, keyP
     const findHandler = () => locationHandler(location)
     const enterHandler = (e: KeyboardEvent<HTMLInputElement>) => keyPressHandler(e.charCode, location)
     return (
-        <div>
+        <Wrapper>
             <TextField
                 fullWidth
                 value={location}
                 onChange={changeLocation}
                 onKeyPress={enterHandler}
                 id="standard-search"
-                label="Search field"
+                label="Location"
                 type="search"
                 variant="standard"
             />
             <Button onClick={findHandler}>Find</Button>
-        </div>
+        </Wrapper>
     )
 }
 
