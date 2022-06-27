@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
-import { Alert, AlertColor, Snackbar } from '@mui/material';
+import React, {createContext, useState} from 'react';
+import {Alert, AlertColor, Snackbar} from '@mui/material';
 
 export const UIContext = createContext<UIContextProps>({} as UIContextProps);
 
@@ -7,6 +7,7 @@ interface UIContextProps {
 	setAlert: React.Dispatch<React.SetStateAction<AlertProps>>;
 
 }
+
 interface ChildrenType {
 	children?: React.ReactNode
 }
@@ -17,7 +18,7 @@ interface AlertProps {
 	message?: string;
 }
 
-export const UIContextProvider: React.FC<ChildrenType> = ({ children }) => {
+export const UIContextProvider: React.FC<ChildrenType> = ({children}) => {
 	const [alert, setAlert] = useState<AlertProps>({
 		show: false,
 		severity: 'info',
@@ -29,7 +30,7 @@ export const UIContextProvider: React.FC<ChildrenType> = ({ children }) => {
 		});
 
 	return (
-		<UIContext.Provider value={{ setAlert }}>
+		<UIContext.Provider value={{setAlert}}>
 			{children}
 			<Snackbar open={alert.show} autoHideDuration={4000} onClose={handleClose}>
 				<Alert elevation={6} variant="filled" severity={alert.severity}>

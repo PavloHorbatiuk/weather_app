@@ -3,24 +3,24 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Box, styled, ThemeProvider } from '@mui/material';
-import { blue, grey } from '@mui/material/colors';
+import {Box, styled, ThemeProvider} from '@mui/material';
+import {blue} from '@mui/material/colors';
 import theme from './theme';
 
 const Background = styled(Box)(() => ({
-  backgroundColor: blue[200],
-  height: '100vh',
-  padding: '20px'
+    backgroundColor: blue[200],
+    height: '100vh',
+    padding: '20px'
 }));
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <ThemeProvider theme={theme}>
-    <Background>
-      <App />
-    </Background>
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+        <Background>
+            <App/>
+        </Background>
+    </ThemeProvider>
 );
 reportWebVitals();
