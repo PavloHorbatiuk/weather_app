@@ -1,5 +1,5 @@
 import React from 'react';
-import { Main } from './component/Main';
+import { Main } from './component';
 import { UIContextProvider } from './UIContext';
 
 

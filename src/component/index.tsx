@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, KeyboardEvent } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AddLocationForm from './AddLocationForm'
 import { DataType } from './types'
 import WeatherData from './WeaterData';
@@ -16,7 +16,7 @@ import clear from './../assets/static/day.svg';
 interface MainProps {
 
 }
-export const Main: React.FC<MainProps> = ({ }) => {
+export const Main: React.FC<MainProps> = () => {
     const [data, setData] = React.useState<DataType | null>(null)
     const [icon, setIcon] = React.useState<string>()
     const dataWeather = data?.weather.find(f => f.main)

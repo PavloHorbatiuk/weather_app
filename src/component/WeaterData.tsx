@@ -47,6 +47,14 @@ const WeatherData: React.FC<WeatherDataTypes> = ({ data, converterKelvin, icon }
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6}>
                     <Item>
+                        <img style={{ height: 'auto' }} src={icon} alt='icon' />
+                        <Paragraph>
+                            Temperature {converterKelvin(data.main.temp)} °C
+                        </Paragraph>
+                    </Item>
+                </Grid>
+                <Grid item xs={6}>
+                    <Item>
                         <Paragraph>
                             Feels like  {converterKelvin(data.main.feels_like)} °C
                         </Paragraph>
@@ -66,18 +74,8 @@ const WeatherData: React.FC<WeatherDataTypes> = ({ data, converterKelvin, icon }
                         Humidity: {data.main.humidity}%
                     </Paragraph>
                 </Grid>
-                <Grid item xs={6}>
-                    <Item>
-                        <img style={{ height: 'auto' }} src={icon} alt='icon' />
-                        <Paragraph>
-                            Temperature {converterKelvin(data.main.temp)} °C
-                        </Paragraph>
-                    </Item>
-                </Grid>
             </Grid>
         </Box >
-
-
     )
 }
 
