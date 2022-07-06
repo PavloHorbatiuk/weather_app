@@ -10,7 +10,6 @@ import theme from './theme';
 const Background = styled(Box)(() => ({
     backgroundColor: blue[200],
     height: '100vh',
-    padding: '20px'
 }));
 
 const root = ReactDOM.createRoot(
