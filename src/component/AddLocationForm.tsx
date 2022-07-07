@@ -2,6 +2,7 @@ import React, {ChangeEvent, KeyboardEvent} from 'react'
 import {Box, Button, styled, TextField} from "@mui/material";
 import Paper from '@mui/material/Paper';
 import {inShadow, outBoxshadow} from "../theme";
+import {ValidationType} from '.';
 
 
 const Wrapper = styled(Box)(() => ({
@@ -19,8 +20,10 @@ const FindButton = styled(Button)(() => ({
 type AddLocationFormProps = {
     locationHandler: (location: string) => void
     keyPressHandler: (e: number, location: string) => void
+    validation: ValidationType
 }
-const AddLocationForm: React.FC<AddLocationFormProps> = ({locationHandler, keyPressHandler}) => {
+const AddLocationForm: React.FC<AddLocationFormProps> = ({locationHandler, keyPressHandler, validation}) => {
+    const {error, helperText} = validation
     const [location, setLocation] = React.useState<string>('')
     const changeLocation = (e: ChangeEvent<HTMLInputElement>) => setLocation(e.target.value)
     const findHandler = () => locationHandler(location)
@@ -34,6 +37,8 @@ const AddLocationForm: React.FC<AddLocationFormProps> = ({locationHandler, keyPr
                         borderRadius: "5px 0 0 5px",
                         boxShadow: inShadow,
                     }}
+                    helperText={helperText}
+                    error={error}
                     fullWidth
                     value={location}
                     onChange={changeLocation}
@@ -42,13 +47,16 @@ const AddLocationForm: React.FC<AddLocationFormProps> = ({locationHandler, keyPr
                     label="Location"
                     type="search"
                     variant="outlined"
-                    InputProps={{endAdornment: <FindButton onClick={findHandler}>Find</FindButton>}}
+                    InputProps={{
+                        endAdornment: <FindButton
+                            disabled={location.length <=2}
+                            onClick={findHandler}>
+                            Find
+                        </FindButton>
+                    }}
                 />
             </Paper>
         </Wrapper>
     )
 }
-
-AddLocationForm.propTypes = {}
-
-export default AddLocationForm
+export default AddLocationForm;

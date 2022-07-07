@@ -11,7 +11,13 @@ import sun from './../assets/static/day.svg';
 import clear from './../assets/static/day.svg';
 import snow from './../assets/static/snowy-3.svg';
 import smthingElse from './../assets/static/weather.svg';
+import {cloudColor, rainSky, snowSky, sunColor} from "../theme";
 
+
+export interface ValidationType {
+    helperText: string
+    error: boolean;
+}
 
 interface MainProps {
     data: DataType | null
@@ -21,6 +27,10 @@ interface MainProps {
 export const Main: React.FC<MainProps> = ({data, setData}) => {
     const [color, setColor] = React.useState('')
     const [icon, setIcon] = React.useState<string>()
+    const [validation, setValidation] = React.useState<ValidationType>({
+        helperText: '',
+        error: false
+    })
     const dataWeather = data?.weather.find(f => f.main)
     const {setAlert} = useContext(UIContext);
     const converterKelvin = (k: number) => {
@@ -32,10 +42,13 @@ export const Main: React.FC<MainProps> = ({data, setData}) => {
         }
     }
     const locationHandler = (location: string) => {
-        weatherApi.setDataLocation(location)
-            .then(res => {
-                setData(res.data)
-            }).catch(error => {
+        if (location.length < 2) {
+            setValidation({error: true, helperText: 'Incorrect text'})
+        } else {
+            weatherApi.setDataLocation(location)
+                .then(res => {
+                    setData(res.data)
+                }).catch(error => {
                 console.log(error)
                 setAlert({
                     show: true,
@@ -43,25 +56,24 @@ export const Main: React.FC<MainProps> = ({data, setData}) => {
                     message: JSON.stringify(error.message),
                 })
             });
+        }
     }
-
-
 
 
     useEffect(() => {
         if (dataWeather?.main === "Clouds") {
-            setColor("rgba(124, 124, 124, 1)")
+            setColor(cloudColor)
             setIcon(clouds)
         } else if (dataWeather?.main === "Rain") {
-            setColor("rgba(28, 87, 130, 1)")
+            setColor(rainSky)
             setIcon(rain)
         } else if (dataWeather?.main === "Sun") {
-            setColor("rgba(255, 203, 103, 1)")
+            setColor(sunColor)
             setIcon(sun)
         } else if (dataWeather?.main === "Snow") {
             setIcon(snow)
         } else if (dataWeather?.main === "Clear") {
-            setColor("rgba(255, 203, 103, 1)")
+            setColor(sunColor)
             setIcon(clear)
         } else {
             setIcon(smthingElse)
@@ -73,6 +85,7 @@ export const Main: React.FC<MainProps> = ({data, setData}) => {
         <div>
             <Container maxWidth='sm'>
                 <AddLocationForm
+                    validation={validation}
                     keyPressHandler={keyPressHandler}
                     locationHandler={locationHandler} />
                 {!!data &&

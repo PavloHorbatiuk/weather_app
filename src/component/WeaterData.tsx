@@ -15,19 +15,12 @@ const Paragraph = styled(Typography)(() => ({
     fontSize: 20,
 }));
 const IconWrapper = styled(Box)(() => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
     padding: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    textAlign: 'left',
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-around",
     boxShadow: "inset 2px 1px 3px 0 rgb(200 186 186 / 50%)",
     background: "#f3f4f7",
-    fontSize: "24px",
     borderRadius: "10px",
-    color: "#ffff"
 }));
 
 
@@ -41,7 +34,6 @@ const WeatherData: React.FC<WeatherDataTypes> = ({data, converterKelvin, icon, c
     const Item = styled(Box)(() => ({
         padding: theme.spacing(1),
         marginTop: theme.spacing(1),
-        textAlign: 'left',
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
@@ -61,13 +53,10 @@ const WeatherData: React.FC<WeatherDataTypes> = ({data, converterKelvin, icon, c
                 <Grid item xs={12}>
                     <Item>
                         <IconWrapper>
-                            <img style={{height: 'auto'}} src={icon} alt='icon'/>
+                            <img style={{height: '80px', minHeight: "auto"}} src={icon} alt='icon'/>
                         </IconWrapper>
                         <Paragraph>
                             Temperature {converterKelvin(data.main.temp)} °C
-                        </Paragraph>
-                        <Paragraph>
-                            Humidity: {data.main.humidity}%
                         </Paragraph>
                     </Item>
                 </Grid>
@@ -86,17 +75,17 @@ const WeatherData: React.FC<WeatherDataTypes> = ({data, converterKelvin, icon, c
                 <Grid item xs={6}>
                     <Item>
                         <Paragraph>
-                            Main: {data.weather.map(f => f.main)}
+                            Wind: {data.wind.speed} mph
                         </Paragraph>
                     </Item>
                     <Item>
                         <Paragraph>
-                            Wind: {data.wind.speed} mph
+                            Humidity: {data.main.humidity}%
                         </Paragraph>
                     </Item>
                 </Grid>
             </Grid>
-        </Box >
+        </Box>
     )
 }
 

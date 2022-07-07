@@ -1,9 +1,9 @@
-import React, {useContext, useEffect} from 'react';
-import {Main} from './component';
-import {UIContext, UIContextProvider} from './UIContext';
-import {Box, styled, Typography} from "@mui/material";
-import {weatherApi} from "./api/api";
-import {DataType} from "./component/types";
+import React, { useContext, useEffect } from 'react';
+import { Main } from './component';
+import { UIContext, UIContextProvider } from './UIContext';
+import { Box, styled, Typography } from "@mui/material";
+import { weatherApi } from "./api/api";
+import { DataType } from "./component/types";
 
 const BoxWrapper = styled(Box)(() => ({
     display: "flex",
@@ -24,7 +24,7 @@ const CustomH1 = styled(Typography)(() => ({
 function App() {
     const [data, setData] = React.useState<DataType | null>(null)
     const [isLoading, setIsloading] = React.useState(true)
-    const {setAlert} = useContext(UIContext);
+    const { setAlert } = useContext(UIContext);
     const Background = styled(Box)(() => ({
         backgroundColor: "#f3f4f7",
         height: '100vh',
@@ -43,14 +43,13 @@ function App() {
                     message: JSON.stringify(error),
                 })
             })
-
     }, [])
     if (isLoading) return <BoxWrapper><CustomH1>Loading...</CustomH1></BoxWrapper>
     return (
         <UIContextProvider>
             <Background>
                 <Main data={data}
-                      setData={setData}
+                    setData={setData}
                 />
             </Background>
         </UIContextProvider>
