@@ -49,7 +49,7 @@ const AddLocationForm: React.FC<AddLocationFormProps> = ({locationHandler, keyPr
                     variant="outlined"
                     InputProps={{
                         endAdornment: <FindButton
-                            disabled={location.length <=2}
+                            disabled={location.length <=3}
                             onClick={findHandler}>
                             Find
                         </FindButton>
