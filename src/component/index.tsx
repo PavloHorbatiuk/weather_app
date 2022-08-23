@@ -5,14 +5,17 @@ import WeatherData from './WeaterData';
 import {Container} from '@mui/material';
 import {weatherApi} from '../api/api';
 import {UIContext} from '../UIContext';
-import clouds from './../assets/static/cloudy.svg';
-import rain from './../assets/static/rainy-1.svg';
-import sun from './../assets/static/day.svg';
-import clear from './../assets/static/day.svg';
-import snow from './../assets/static/snowy-3.svg';
 import smthingElse from './../assets/static/weather.svg';
-import {cloudColor, rainSky, snowSky, sunColor} from "../theme";
+import {cloudColor, rainSky, sunColor} from "../theme";
 
+
+const values = {
+    clouds: "Clouds",
+    rain: "Rain",
+    sun: "Sun",
+    snow: "Snow",
+    clear: "Clear",
+}
 
 export interface ValidationType {
     helperText: string
@@ -31,6 +34,7 @@ export const Main: React.FC<MainProps> = ({data, setData}) => {
         helperText: '',
         error: false
     })
+    const {sun, rain, clouds, snow, clear} = values
     const dataWeather = data?.weather.find(f => f.main)
     const {setAlert} = useContext(UIContext);
     const converterKelvin = (k: number) => {
@@ -61,22 +65,35 @@ export const Main: React.FC<MainProps> = ({data, setData}) => {
 
 
     useEffect(() => {
-        if (dataWeather?.main === "Clouds") {
-            setColor(cloudColor)
-            setIcon(clouds)
-        } else if (dataWeather?.main === "Rain") {
-            setColor(rainSky)
-            setIcon(rain)
-        } else if (dataWeather?.main === "Sun") {
-            setColor(sunColor)
-            setIcon(sun)
-        } else if (dataWeather?.main === "Snow") {
-            setIcon(snow)
-        } else if (dataWeather?.main === "Clear") {
-            setColor(sunColor)
-            setIcon(clear)
-        } else {
-            setIcon(smthingElse)
+        switch (dataWeather?.main) {
+            case clouds: {
+                setColor(cloudColor)
+                setIcon(clouds);
+                break
+            }
+            case sun: {
+                setColor(sunColor)
+                setIcon(sun)
+                break
+            }
+            case rain: {
+                setColor(rainSky)
+                setIcon(rain)
+                break
+            }
+            case snow: {
+                setIcon(snow)
+                break
+            }
+            case clear: {
+                setColor(sunColor)
+                setIcon(clear)
+                break
+            }
+            default: {
+                setIcon(smthingElse)
+            }
+
         }
     }, [dataWeather?.main])
 
@@ -93,10 +110,27 @@ export const Main: React.FC<MainProps> = ({data, setData}) => {
                         color={color}
                         icon={icon}
                         converterKelvin={converterKelvin}
-                        data={data} />}
+                        data={data}/>}
             </Container>
         </div>
     )
 }
 
 
+// if (dataWeather?.main === "Clouds") {
+//     setColor(cloudColor)
+//     setIcon(clouds)
+// } else if (dataWeather?.main === "Rain") {
+//     setColor(rainSky)
+//     setIcon(rain)
+// } else if (dataWeather?.main === "Sun") {
+//     setColor(sunColor)
+//     setIcon(sun)
+// } else if (dataWeather?.main === "Snow") {
+//     setIcon(snow)
+// } else if (dataWeather?.main === "Clear") {
+//     setColor(sunColor)
+//     setIcon(clear)
+// } else {
+//     setIcon(smthingElse)
+// }
