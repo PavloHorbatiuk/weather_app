@@ -7,6 +7,12 @@ import { weatherApi } from '../api/api';
 import { UIContext } from '../UIContext';
 import smthingElse from './../assets/static/weather.svg';
 import { cloudColor, rainSky, sunColor } from '../theme';
+import clearImg from './../assets/static/cloudy-night-1.svg'
+import sunImg from './../assets/static/weather_sunset.svg'
+import snowImg from './../assets/static/snowy-6.svg'
+import rianImg from './../assets/static/rainy-4.svg'
+import cloudsImg from './../assets/static/cloudy-day-2.svg'
+
 
 const values = {
 	clouds: 'Clouds',
@@ -68,26 +74,26 @@ export const Main: React.FC<MainProps> = ({ data, setData }) => {
 		switch (dataWeather?.main) {
 			case clouds: {
 				setColor(cloudColor);
-				setIcon(clouds);
-				break;
+				setIcon(cloudsImg);
+				break
 			}
 			case sun: {
 				setColor(sunColor);
-				setIcon(sun);
+				setIcon(sunImg);
 				break;
 			}
 			case rain: {
 				setColor(rainSky);
-				setIcon(rain);
+				setIcon(rianImg);
 				break;
 			}
 			case snow: {
-				setIcon(snow);
+				setIcon(snowImg);
 				break;
 			}
 			case clear: {
 				setColor(sunColor);
-				setIcon(clear);
+				setIcon(clearImg);
 				break;
 			}
 			default: {
